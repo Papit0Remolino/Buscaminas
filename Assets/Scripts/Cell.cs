@@ -13,7 +13,10 @@ public class Cell : MonoBehaviour
         hasMine = (Random.value < 0.15f); //random.value da un valor entre 0 y 1. Si el valor que sale es < 0.15 hasMine se volverá true;
         Debug.Log(hasMine);
         int x = (int)this.transform.position.x; //el int entre parentesis es para truncar la posicion en caso de que este con decimales
-        int y = (int)this.transform.position.y;
+        int y = (int)this.transform.parent.position.y; //parent porque la y la guarda el objecto fila no los paneles de dentro
+        //en la matriz posicion(la de este objeto) metele el gameobject donde esta este código(this);
+        GridHelper.cells[x, y] = this;
+
     }
     void Update()
     {
@@ -28,6 +31,7 @@ public class Cell : MonoBehaviour
         if (hasMine)
         {
             Debug.Log("TieneMina");
+            GridHelper.uncoverAllTheMines();
         }
         else
         {
