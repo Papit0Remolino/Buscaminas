@@ -6,6 +6,7 @@ public class GridHelper : MonoBehaviour
 {
     public static int w = 15;
     public static int h = 15;
+    public static int totalMines = 0;
     //un array para guardar todas las celdas de nuestro juego
     //al poner la coma en el array le estas diciendo que tiene dos dimensiones [x,y]
     //los static se pueden usar desde otro script
@@ -49,5 +50,35 @@ public class GridHelper : MonoBehaviour
 
         return count;
 
+    }
+
+    public static void FloodFillUncover(int x, int y, bool[,] visited)
+    {
+        if (x >= 0 && y >= 0 && x < w && y < h)
+        {
+            //si ya la hemos visitado
+            if (visited[x, y])
+            {
+                return; //deja de ejecutarse el método
+            }
+            int adjacentMines = countAdjacentMines(x, y);
+            cells[x, y].LoadTexture(adjacentMines);
+            if(adjacentMines > 0)
+            {
+                return;
+            }
+            //si no, la marcamos como visitada
+            visited[x, y] = true;
+            //y pasamos a la siguiente celda sin visitar adyacente 
+            FloodFillUncover(x - 1, y, visited);
+            FloodFillUncover(x + 1, y, visited);
+            FloodFillUncover(x, y - 1, visited);
+            FloodFillUncover(x, y + 1, visited);
+            //MINITAREA
+            FloodFillUncover(x - 1, y+1, visited);
+            FloodFillUncover(x + 1, y+1, visited);
+            FloodFillUncover(x-1, y - 1, visited);
+            FloodFillUncover(x+1, y - 1, visited);
+        }
     }
 }
