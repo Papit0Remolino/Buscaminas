@@ -18,7 +18,7 @@ public class Cell : MonoBehaviour
         {
             GridHelper.totalMines++;
         }
-        minesText.text = GridHelper.totalMines.ToString();
+        minesText.text = "Total mines: " + GridHelper.totalMines.ToString();
         x = (int)this.transform.position.x; //el int entre parentesis es para truncar la posicion en caso de que este con decimales
         y = (int)this.transform.parent.position.y; //parent porque la y la guarda el objecto fila no los paneles de dentro
         //en la matriz posicion(la de este objeto) metele el gameobject donde esta este código(this);
@@ -44,6 +44,10 @@ public class Cell : MonoBehaviour
         {
             LoadTexture(GridHelper.countAdjacentMines(x, y));
             GridHelper.FloodFillUncover(x, y, new bool[GridHelper.w, GridHelper.h]);
+            if (GridHelper.HasTheGameended())
+            {
+                Debug.Log("ganas");
+            }
         }
     }
     public void LoadTexture(int adjacentCount) //cuenta las minas adyacentes para calcular el numero a poner al clicar

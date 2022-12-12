@@ -81,4 +81,17 @@ public class GridHelper : MonoBehaviour
             FloodFillUncover(x+1, y - 1, visited);
         }
     }
+
+    public static bool HasTheGameended()
+    {
+        foreach(Cell c in cells)
+        {
+            //si quedan casillas que no sean minas por destapar, todavia no se ha acabado el juego
+            if (c.IsCovered() && !c.hasMine)
+            {
+                return false;
+            }
+        }
+        return true;
+    }
 }
