@@ -30,7 +30,6 @@ public class Cell : MonoBehaviour
     {
         if (hasMine)
         {
-            Debug.Log("TieneMina");
             GridHelper.uncoverAllTheMines();
         }
         else
