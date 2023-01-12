@@ -36,7 +36,7 @@ public class GridHelper : MonoBehaviour
             return false;
         }
     }
-    public static int countAdjacentMines(int x, int y)
+    public static int CountAdjacentMines(int x, int y)
     {
         int count = 0;
         if (HasMineAt(x + 1, y)) count++;
@@ -61,7 +61,7 @@ public class GridHelper : MonoBehaviour
             {
                 return; //deja de ejecutarse el método
             }
-            int adjacentMines = countAdjacentMines(x, y);
+            int adjacentMines = CountAdjacentMines(x, y);
             cells[x, y].LoadTexture(adjacentMines);
             if(adjacentMines > 0)
             {
