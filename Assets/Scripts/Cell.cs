@@ -13,7 +13,7 @@ public class Cell : MonoBehaviour
     void Start()
     {
         //probabilidad del 15 porciento de que salga mina.
-        hasMine = (Random.value < 0.15f); //random.value da un valor entre 0 y 1. Si el valor que sale es < 0.15 hasMine se volverá true;
+        hasMine = (Random.Range(0,100) < GetComponentInParent<MineChance>().mineChance); //random.value da un valor entre 0 y 1. Si el valor que sale es < 0.15 hasMine se volverá true;
         if (hasMine == true)
         {
             GridHelper.totalMines++;
@@ -41,7 +41,7 @@ public class Cell : MonoBehaviour
         }
         else
         {
-            LoadTexture(GridHelper.countAdjacentMines(x, y));
+            LoadTexture(GridHelper.CountAdjacentMines(x, y));
             GridHelper.FloodFillUncover(x, y, new bool[GridHelper.w, GridHelper.h]);
             if (GridHelper.HasTheGameended())
             {
